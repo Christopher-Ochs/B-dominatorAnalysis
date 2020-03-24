@@ -148,7 +148,7 @@ def get_maximum_b_value(graph):
     :param graph: Networkx graph with node attribute bValues
     :return: node id and value of maximum bValue
     """
-    node_attribute_dict = networkx.get_node_attributes(graph, "bValue")
+    node_attribute_dict = nx.get_node_attributes(graph, "bValue")
 
     return max(node_attribute_dict.items(), key=operator.itemgetter(1))
 
