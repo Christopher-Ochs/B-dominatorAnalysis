@@ -1,16 +1,13 @@
-import networkx
 import matplotlib.pyplot as plt
 import networkx as nx
-import random as rand
 import statistics
 import copy
 import sys
-import operator
 from progress.bar import Bar
 import utils
 
 
-def show_graph_b_values(graph, pos, title):
+def show_graph_b_values(graph: nx.Graph, pos, title: str):
     """
     Displays whe graph
     :param title: title to display
@@ -25,7 +22,7 @@ def show_graph_b_values(graph, pos, title):
     plt.show()
 
 
-def show_graph(graph, pos, title):
+def show_graph(graph: nx.Graph, pos, title: str):
     """
     Displays whe graph
     :param title: title to display
@@ -39,7 +36,7 @@ def show_graph(graph, pos, title):
     plt.show()
 
 
-def display_independent_results(average_recoveries: list, matching_cap):
+def display_independent_results(average_recoveries: list, matching_cap: int):
     """
     Displayed the output of the independent
     :param average_recoveries:
@@ -56,7 +53,7 @@ def display_independent_results(average_recoveries: list, matching_cap):
     print("\n\n")
 
 
-def test_graph(b_values_graph):
+def test_graph(b_values_graph: nx.Graph):
     # Perform the matching
     matching_graph = utils.perform_b_matching(b_values_graph)
 
@@ -66,7 +63,7 @@ def test_graph(b_values_graph):
     return matching_graph, actual_weights
 
 
-def test_k_graph_independence(input_graph, min_weight, max_weight, matching_cap=2, results=False, display=False):
+def test_k_graph_independence(input_graph: nx.Graph, min_weight: int, max_weight: int, matching_cap: int, display=False):
     utils.add_weights_to_graph(input_graph, min_weight, max_weight)
     goal_weights = utils.get_total_weights(input_graph)
     b_value_graph = utils.add_b_values_to_graph(input_graph)
@@ -95,17 +92,10 @@ def test_k_graph_independence(input_graph, min_weight, max_weight, matching_cap=
             show_graph(b_value_graph, pos, "Node Labels   Iteration " + str(matching_count))
             show_graph_b_values(b_value_graph, pos, "b-Values   Iteration " + str(matching_count))
 
-    if results:
-        print("========== RESULTS ==========")
-        print("Final matching achieved = " + str(matching_count))
-        print("Average Recovery Percentage = " + str(average_recovery))
-        print("Best Recovery Percentage = " + str(max(average_recoveries)))
-        print("Worst Recovery Percentage = " + str(min(average_recoveries)))
-
     return matching_count, average_recoveries
 
 
-def test_k_graph_independence_dominating(input_graph, min_weight, max_weight, matching_cap=2, results=False, display=False):
+def test_k_graph_independence_dominating(input_graph: nx.Graph, min_weight: int, max_weight: int, matching_cap: int, display=False):
     utils.add_weights_to_graph(input_graph, min_weight, max_weight)
     goal_weights = utils.get_total_weights(input_graph)
     b_value_graph = utils.add_b_values_to_graph(input_graph)
@@ -140,13 +130,6 @@ def test_k_graph_independence_dominating(input_graph, min_weight, max_weight, ma
         if display:
             show_graph(b_value_graph, pos, "Node Labels   Iteration " + str(matching_count))
             show_graph_b_values(b_value_graph, pos, "b-Values   Iteration " + str(matching_count))
-
-    if results:
-        print("========== RESULTS ==========")
-        print("Final matching achieved = " + str(matching_count))
-        print("Average Recovery Percentage = " + str(average_recovery))
-        print("Best Recovery Percentage = " + str(max(average_recoveries)))
-        print("Worst Recovery Percentage = " + str(min(average_recoveries)))
 
     return matching_count, average_recoveries
 
@@ -313,7 +296,6 @@ def test_dominating_independence(trials=1000, matching_cap=4, num_nodes=None, mi
             display_independent_results(average_recoveries, matching_cap)
 
 
-
 def test_ring_graph_independence(num_nodes=None, initial_degrees=None, min_weight=25, max_weight=2500, trials=1000, matching_cap=4):
     print("ANALYZING RING GRAPH:\n")
 
@@ -340,15 +322,15 @@ def test_ring_graph_independence(num_nodes=None, initial_degrees=None, min_weigh
 
 
 def main():
-    t = 3
-    test_complete_graph_independence(trials=t)
-    test_random_edge_graph_independence(trials=t)
-    test_random_prob_graph_independence(trials=t)
-    test_barabasi_albert_graph_independence(trials=t)
-    test_small_world_graph_independence(trials=t)
-    test_near_complete_independence(trials=t)
-    test_dominating_independence(trials=t)
-    test_ring_graph_independence(trials=t)
+    cap = int(sys.argv[1])
+    test_complete_graph_independence(matching_cap=cap)
+    test_random_edge_graph_independence(matching_cap=cap)
+    test_random_prob_graph_independence(matching_cap=cap)
+    test_barabasi_albert_graph_independence(matching_cap=cap)
+    test_small_world_graph_independence(matching_cap=cap)
+    test_near_complete_independence(matching_cap=cap)
+    test_dominating_independence(matching_cap=cap)
+    test_ring_graph_independence(matching_cap=cap)
 
 
 if __name__ == "__main__":

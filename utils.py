@@ -1,12 +1,8 @@
-import networkx
 import matplotlib.pyplot as plt
 import networkx as nx
 import random as rand
-import statistics
 import copy
-import sys
 import operator
-from progress.bar import Bar
 
 
 def generate_random_prob_graph(num_nodes, prob):
