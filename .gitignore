@@ -2,3 +2,15 @@
 .idea/
 
 __pycache__/
+
+venv/Lib/site-packages/cycler-0.10.0.dist-info/
+
+venv/Lib/site-packages/
+
+venv/share/doc/networkx-2.4/examples/pygraphviz/
+
+venv/share/doc/networkx-2.4/examples/
+
+venv/Scripts/
+
+venv/
